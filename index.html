@@ -110,17 +110,19 @@
         h1 {
             font-size: 4.5em;
             color: #c0ff02; /* Color específico para el mensaje de cumpleaños */
-            margin-bottom: 30px;
+            margin: 0 0 30px 0; /* Ajustado el margen: arriba, derecha, abajo, izquierda */
             z-index: 2;
             position: relative;
             display: flex; /* Mantener flex para la animación de letras */
             flex-wrap: wrap; /* Permitir que el texto se ajuste en varias líneas si es necesario */
-            justify-content: center;
-            text-align: center; 
+            justify-content: center; /* Centra el contenido horizontalmente */
+            text-align: center; /* Centra el texto dentro del h1 */
             line-height: 1.1; /* Ajusta la altura de línea */
             box-sizing: border-box; /* Para que el padding no cause desbordamiento */
             padding: 0 20px; /* Un poco de padding horizontal para el texto */
             white-space: nowrap; /* Intentar mantener en una sola línea */
+            width: 100%; /* Asegura que ocupe todo el ancho para el centrado */
+            max-width: fit-content; /* Permite que el ancho se ajuste al contenido si es más pequeño */
         }
 
         h1 span {
@@ -128,7 +130,7 @@
             transform: translateY(20px);
             display: inline-block; /* Sigue siendo inline-block para la animación de letras */
             animation: letter-appear 0.6s forwards ease-out;
-            margin: 0 0.5px; /* Reducir aún más el margen entre letras */
+            margin: 0 0.5px; /* Mantener el margen mínimo entre letras */
             text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.4), 0 0 15px #FF69B4;
         }
 
@@ -233,18 +235,18 @@
 
             .main-presentation {
                 padding: 10px;
-                justify-content: center; /* Centrar verticalmente en móvil, ya que el contenido es más pequeño */
-                min-height: 100vh; /* Asegurar que ocupe la altura completa */
-                height: auto; /* Dejar que la altura se ajuste al contenido si este es mayor que 100vh */
+                justify-content: center; /* Centrar verticalmente en móvil */
+                min-height: 100vh; 
+                height: auto; 
             }
 
             h1 {
                 font-size: 2.2em; /* Tamaño de fuente para que encaje en una línea */
-                margin-top: 10px;
-                margin-bottom: 10px;
-                padding: 0 5px;
+                margin: 0 auto 10px auto; /* Centrar el h1 y ajustar margen inferior */
+                padding: 0 5px; /* Reducir padding horizontal para más espacio */
                 line-height: 1.2;
                 white-space: nowrap; /* Intentar forzar una sola línea */
+                max-width: 95%; /* Limitar el ancho del h1 para evitar desbordamiento */
             }
 
             .image-cake-wrapper {
@@ -295,8 +297,7 @@
             }
             h1 {
                 font-size: 1.8em; /* Reducir aún más el tamaño de la fuente para pantallas muy pequeñas */
-                margin-top: 5px;
-                margin-bottom: 5px;
+                margin: 0 auto 5px auto; /* Centrar y ajustar margen */
             }
             .person-image {
                 width: 95%;
@@ -424,9 +425,8 @@
 
         function animateH1Text() {
             const h1Element = document.querySelector('h1');
-            // Obtener el texto directamente, ya no hay <br> en el HTML del h1
             const text = h1Element.textContent; 
-            h1Element.innerHTML = ''; // Limpiar el contenido existente
+            h1Element.innerHTML = ''; 
 
             text.split('').forEach((char, index) => {
                 const span = document.createElement('span');
