@@ -7,7 +7,7 @@
    <style>
        body {
            margin: 0;
-           background-color: #80004d;
+           background-color: #ef71da;
            font-family: 'Comic Sans MS', cursive, sans-serif;
            color: #000;
        }
@@ -18,7 +18,7 @@
            left: 0;
            width: 100%;
            height: 100%;
-           background-color: #fff;
+           background-color: #ffffff;
            display: flex;
            flex-direction: column;
            justify-content: center;
@@ -35,8 +35,8 @@
 
        .gift-message {
            font-size: 2em;
-           color: #000;
-           margin-bottom: 20px;
+           color: #000000;
+           margin-bottom: 30px;
            text-align: center;
            animation: pulse 1.5s infinite alternate;
        }
@@ -47,8 +47,8 @@
        }
 
        .gift-box {
-           width: 250px;
-           height: 250px;
+           width: 320px;
+           height: 320px;
            cursor: pointer;
            animation: bounce 2s infinite ease-in-out;
        }
@@ -92,7 +92,7 @@
 
        h1 {
            font-size: 2.5em;
-           color: #9acd32;
+           color: #c0ff02;
            text-align: center;
            margin: 20px 0;
            width: 100%;
@@ -128,14 +128,14 @@
            width: 90%;
            max-width: 300px;
            height: auto;
-           margin-bottom: 20px;
+           margin-bottom: 10px;
            border-radius: 10px;
            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
        }
 
        .cake-container {
            position: relative;
-           width: 250px;
+           width: 300px;
            height: auto;
        }
 
@@ -146,7 +146,7 @@
 
        .flame {
            position: absolute;
-           top: 52px;
+           top: 67px;
            left: 48%;
            transform: translateX(-50%);
            width: 12px;
@@ -214,7 +214,7 @@
 
        function createFirework() {
            const x = Math.random() * window.innerWidth;
-           const y = Math.random() * window.innerHeight * 0.8;
+           const y = Math.random() * window.innerHeight * 0.9;
            const color = `hsl(${Math.random() * 360}, 100%, 70%)`;
 
            const sound = fireworkSounds[soundIndex];
@@ -230,7 +230,7 @@
                particle.style.backgroundColor = color;
 
                const angle = Math.random() * 2 * Math.PI;
-               const distance = Math.random() * 100 + 50;
+               const distance = Math.random() * 150 + 50;
                particle.style.setProperty('--x', `${distance * Math.cos(angle)}px`);
                particle.style.setProperty('--y', `${distance * Math.sin(angle)}px`);
                fireworksContainer.appendChild(particle);
@@ -244,6 +244,7 @@
            birthdayMessage.innerHTML = '';
            text.split('').forEach((char, i) => {
                const span = document.createElement('span');
+
                span.textContent = char;
                if (char === ' ') span.classList.add('space-char');
                span.style.animationDelay = `${i * 0.08}s`;
