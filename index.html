@@ -113,11 +113,12 @@
             margin-bottom: 30px;
             z-index: 2;
             position: relative;
-            display: flex;
-            flex-wrap: wrap; /* Permite que el texto se ajuste en varias líneas */
+            display: flex; /* Mantener flex para la animación de letras */
+            flex-direction: column; /* Apilar las dos líneas del título */
             justify-content: center;
-            text-align: center; /* Centra el texto si se divide en varias líneas */
-            line-height: 1.1; /* Ajusta la altura de línea para evitar espacios extra al envolver */
+            align-items: center; /* Centrar el texto apilado */
+            text-align: center; /* Asegura que el texto se centre dentro de cada línea si se envuelve */
+            line-height: 1.1; /* Ajusta la altura de línea */
             box-sizing: border-box; /* Para que el padding no cause desbordamiento */
             padding: 0 20px; /* Un poco de padding horizontal para el texto */
         }
@@ -125,7 +126,7 @@
         h1 span {
             opacity: 0;
             transform: translateY(20px);
-            display: inline-block;
+            display: inline-block; /* Sigue siendo inline-block para la animación de letras */
             animation: letter-appear 0.6s forwards ease-out;
             margin: 0 0.5px; /* Reducir aún más el margen entre letras */
             text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.4), 0 0 15px #FF69B4;
@@ -159,13 +160,18 @@
         }
 
         .person-image {
-            width: 300px; /* Ancho de las imágenes de persona */
-            height: 350px; /* Alto de las imágenes de persona (ajusta según tus imágenes) */
+            width: 300px; /* Ancho de la imagen de persona */
+            height: 350px; /* Alto de la imagen de persona */
             object-fit: contain; /* Ajusta la imagen dentro de las dimensiones sin cortarla */
-            margin: 0 20px; /* Espacio a los lados de cada imagen */
-            z-index: 1; /* Asegura que estén al mismo nivel que la torta */
-            max-width: 45%; /* Limita el ancho para que quepan 2 en fila */
+            margin: 0 20px; /* Espacio a los lados de la imagen */
+            z-index: 1;
+            max-width: 45%; /* Limita el ancho para que quepan 2 en fila si hubiera más */
             height: auto; /* Permite que la altura se ajuste proporcionalmente */
+        }
+
+        /* Ocultar la imagen Familiar.jpg en todas las pantallas */
+        .person-image.hide-on-all {
+            display: none;
         }
 
         .cake-container {
@@ -227,53 +233,58 @@
 
             .main-presentation {
                 padding: 10px;
-                justify-content: flex-start; /* Empezar el contenido más arriba */
-                min-height: auto; /* Permitir que la altura se ajuste al contenido, no siempre 100vh */
-                height: 100vh; /* Forzar 100vh si el contenido es menor, para centrado visual */
+                justify-content: center; /* Centrar verticalmente en móvil, ya que el contenido es más pequeño */
+                min-height: 100vh; /* Asegurar que ocupe la altura completa */
+                height: auto; /* Dejar que la altura se ajuste al contenido si este es mayor que 100vh */
             }
 
             h1 {
-                font-size: 1.9em; /* Título de cumpleaños más pequeño */
-                margin-top: 10px; /* Reducir margen superior */
-                margin-bottom: 10px; /* Reducir margen inferior */
-                padding: 0 5px; /* Asegura que el texto no toque los bordes */
+                font-size: 2.5em; /* Aumentar ligeramente el tamaño del texto para que sea legible en dos líneas */
+                margin-top: 10px;
+                margin-bottom: 10px;
+                padding: 0 5px;
                 line-height: 1.2;
             }
 
             .image-cake-wrapper {
-                flex-direction: column; /* Apila las imágenes y la torta verticalmente */
+                flex-direction: column; /* Apila la imagen y la torta verticalmente */
                 align-items: center; /* Centra los elementos apilados */
-                margin-top: 10px; /* Reduce el margen superior */
+                margin-top: 10px;
                 width: 100%;
-                max-width: none; /* Eliminar max-width para que 'width: 90%' funcione */
-                padding: 0; /* Eliminar padding horizontal en el wrapper para móvil */
+                max-width: none;
+                padding: 0;
             }
 
             .person-image {
-                width: 90%; /* Hacer la imagen más ancha para aprovechar el espacio */
-                max-width: 280px; /* Limitar el tamaño máximo de la imagen */
+                width: 90%; /* Más ancho para aprovechar el espacio */
+                max-width: 280px; /* Limitar el tamaño máximo */
                 height: auto;
-                margin: 10px 0; /* Margen vertical entre los elementos apilados */
+                margin: 10px 0; /* Margen vertical entre la imagen y la torta */
+            }
+            
+            /* Asegurar que la imagen Familiar.jpg siga oculta en móviles */
+            .person-image.hide-on-all {
+                display: none;
             }
 
             .cake-container {
-                width: 90%; /* Hacer la torta más ancha */
-                max-width: 250px; /* Limitar el tamaño máximo de la torta */
+                width: 90%; /* Más ancho para la torta */
+                max-width: 250px;
                 height: auto;
-                margin: 10px 0; /* Margen para separar de las imágenes */
+                margin: 10px 0; /* Margen para separar de la imagen */
             }
 
             .cake-image {
-                max-width: 100%; /* Asegura que la imagen de la torta no desborde su contenedor */
+                max-width: 100%;
             }
 
             .flame {
-                top: 50px; /* Ajusta la posición de la flama en la torta más pequeña */
+                top: 50px;
             }
         }
 
         /* Estilos para pantallas muy pequeñas (celulares más compactos, como iPhone SE) */
-        @media (max-width: 360px) { /* Reducido a 360px para teléfonos muy pequeños */
+        @media (max-width: 360px) {
             .gift-message {
                 font-size: 1.2em;
             }
@@ -282,13 +293,13 @@
                 height: 160px;
             }
             h1 {
-                font-size: 1.6em;
+                font-size: 2em; /* Reducir aún más el tamaño de la fuente para pantallas muy pequeñas */
                 margin-top: 5px;
                 margin-bottom: 5px;
             }
             .person-image {
-                width: 95%; /* Aún más ancho para pantallas muy pequeñas */
-                max-width: 180px; /* Limitar el tamaño máximo */
+                width: 95%;
+                max-width: 180px;
                 margin: 5px 0;
             }
             .cake-container {
@@ -300,7 +311,6 @@
                 top: 40px;
             }
         }
-
     </style>
 </head>
 <body>
@@ -311,7 +321,9 @@
 
     <div class="main-presentation" id="main-presentation">
         <div class="fireworks-container" id="fireworks-container"></div>
-        <h1>¡Feliz Cumpleaños Allison!</h1>
+        <h1>
+            ¡Feliz Cumpleaños<br>Allison!
+        </h1>
         
         <div class="image-cake-wrapper">
             <img src="Allison.jpg" alt="Foto de Allison" class="person-image">
@@ -319,8 +331,7 @@
                 <img src="cake.png" alt="Torta de Cumpleaños Personalizada" class="cake-image">
                 <div class="flame"></div>
             </div>
-            <img src="Familiar.jpg" alt="Foto Familiar" class="person-image">
-        </div>
+            </div>
     </div>
 
     <audio id="background-music" src="birthday_song.mp3" loop></audio>
@@ -330,7 +341,7 @@
         const giftBox = document.getElementById('gift-box');
         const mainPresentation = document.getElementById('main-presentation');
         const fireworksContainer = document.getElementById('fireworks-container');
-        const backgroundMusic = document.getElementById('background-music');
+        const backgroundMusic = document = document.getElementById('background-music');
 
         // --- Configuración y pre-carga de sonidos de fuegos artificiales ---
         const fireworkSounds = [];
@@ -412,20 +423,31 @@
 
         function animateH1Text() {
             const h1Element = document.querySelector('h1');
-            const text = h1Element.textContent;
-            h1Element.innerHTML = ''; 
+            const textContent = h1Element.innerHTML; // Obtener el HTML para manejar el <br>
+            h1Element.innerHTML = ''; // Limpiar el contenido existente
 
-            text.split('').forEach((char, index) => {
-                const span = document.createElement('span');
-                
-                if (char === ' ') {
-                    span.innerHTML = '&nbsp;';
-                    span.classList.add('space-char');
-                } else {
-                    span.textContent = char;
-                    span.style.animationDelay = `${index * 0.08}s`;
+            // Dividir por líneas para animar correctamente cada parte
+            const lines = textContent.split('<br>');
+
+            lines.forEach((lineText, lineIndex) => {
+                // Si no es la primera línea y hay más de una, añadir un <br> real
+                if (lineIndex > 0) {
+                    const br = document.createElement('br');
+                    h1Element.appendChild(br);
                 }
-                h1Element.appendChild(span);
+
+                lineText.split('').forEach((char, charIndex) => {
+                    const span = document.createElement('span');
+                    if (char === ' ') {
+                        span.innerHTML = '&nbsp;';
+                        span.classList.add('space-char');
+                    } else {
+                        span.textContent = char;
+                        // Ajustar el delay para que la segunda línea no empiece de inmediato
+                        span.style.animationDelay = `${(lineIndex * 0.5) + (charIndex * 0.08)}s`; 
+                    }
+                    h1Element.appendChild(span);
+                });
             });
         }
     </script>
