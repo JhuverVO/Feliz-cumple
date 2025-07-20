@@ -7,11 +7,9 @@
    <style>
        body {
            margin: 0;
-           overflow-x: hidden;
-           overflow-y: auto;
-           background-color: #ef71da;
+           background-color: #80004d;
            font-family: 'Comic Sans MS', cursive, sans-serif;
-           color: #000000;
+           color: #000;
        }
 
        .initial-screen {
@@ -20,7 +18,7 @@
            left: 0;
            width: 100%;
            height: 100%;
-           background-color: #ffffff;
+           background-color: #fff;
            display: flex;
            flex-direction: column;
            justify-content: center;
@@ -36,11 +34,10 @@
        }
 
        .gift-message {
-           font-size: 2.5em;
-           color: #000000;
-           margin-bottom: 30px;
+           font-size: 2em;
+           color: #000;
+           margin-bottom: 20px;
            text-align: center;
-           text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
            animation: pulse 1.5s infinite alternate;
        }
 
@@ -50,15 +47,10 @@
        }
 
        .gift-box {
+           width: 250px;
+           height: 250px;
            cursor: pointer;
-           width: 360px;
-           height: 360px;
-           object-fit: contain;
            animation: bounce 2s infinite ease-in-out;
-       }
-
-       .gift-box:active {
-           transform: scale(0.95);
        }
 
        @keyframes bounce {
@@ -69,13 +61,9 @@
        .main-presentation {
            display: none;
            flex-direction: column;
-           justify-content: center;
            align-items: center;
+           padding: 20px;
            min-height: 100vh;
-           width: 100%;
-           position: relative;
-           box-sizing: border-box;
-           padding: 20px 10px;
        }
 
        .fireworks-container {
@@ -85,7 +73,7 @@
            width: 100%;
            height: 100%;
            pointer-events: none;
-           z-index: 100;
+           z-index: 1;
        }
 
        .firework-particle {
@@ -99,241 +87,100 @@
 
        @keyframes particle-burst {
            0% { transform: translate(0, 0) scale(0); opacity: 1; box-shadow: 0 0 5px currentColor; }
-           10% { transform: translate(0, 0) scale(1); }
            100% { transform: translate(var(--x), var(--y)) scale(0.5); opacity: 0; box-shadow: none; }
        }
 
-        h1 {
-            font-size: 4.5em;
-            color: #c0ff02;
-            margin: 0 0 30px 0;
-            z-index: 2;
-            position: relative;
-            text-align: center;
-            width: 100%;
-            line-height: 1.1;
-            padding: 0 20px;
-            box-sizing: border-box;
-        }
+       h1 {
+           font-size: 2.5em;
+           color: #9acd32;
+           text-align: center;
+           margin: 20px 0;
+           width: 100%;
+           max-width: 90%;
+           z-index: 2;
+       }
 
-        h1 span {
-            opacity: 0;
-            transform: translateY(20px);
-            display: inline-block;
-            animation: letter-appear 0.6s forwards ease-out;
-            margin: 0 0.5px;
-            text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.4), 0 0 15px #FF69B4;
-        }
+       h1 span {
+           display: inline-block;
+           opacity: 0;
+           transform: translateY(20px);
+           animation: letter-appear 0.6s forwards ease-out;
+           text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+       }
 
-
-       h1 .space-char {
-           opacity: 1;
-           transform: none;
-           animation: none;
-           text-shadow: none;
+       .space-char {
+           width: 0.5em;
        }
 
        @keyframes letter-appear {
-           0% { opacity: 0; transform: translateY(20px); }
-           100% { opacity: 1; transform: translateY(0); }
+           to { opacity: 1; transform: translateY(0); }
        }
 
        .image-cake-wrapper {
            display: flex;
-           justify-content: center;
-           align-items: flex-end;
-           margin-top: 20px;
-           position: relative;
-           z-index: 1;
-           flex-wrap: nowrap;
-           width: 100%;
-           max-width: 100%;
-           box-sizing: border-box;
-           padding: 0 10px;
+           flex-direction: column;
+           align-items: center;
+           margin-top: 10px;
+           z-index: 2;
        }
 
        .person-image {
-           width: 300px;
-           height: 350px;
-           object-fit: contain;
-           margin: 0 20px;
-           z-index: 1;
-           max-width: 45%;
+           width: 90%;
+           max-width: 300px;
            height: auto;
-       }
-
-       .person-image.hide-on-all {
-           display: none;
+           margin-bottom: 20px;
+           border-radius: 10px;
+           box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
        }
 
        .cake-container {
            position: relative;
-           width: 300px;
-           height: 300px;
-           display: flex;
-           justify-content: center;
-           align-items: flex-end;
-           z-index: 2;
-           max-width: 50%;
+           width: 250px;
+           height: auto;
        }
 
        .cake-image {
            width: 100%;
            height: auto;
-           max-width: 300px;
-           display: block;
-           object-fit: contain;
        }
 
        .flame {
            position: absolute;
-           top: 70px;
-           left: 50%;
+           top: 52px;
+           left: 48%;
            transform: translateX(-50%);
            width: 12px;
            height: 20px;
            background-color: #ffff00;
-           border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+           border-radius: 50%;
            box-shadow: 0 0 10px #ffff00, 0 0 20px #ff0000;
            animation: flicker 0.4s infinite alternate;
-           z-index: 3;
        }
 
        @keyframes flicker {
            0% { transform: translateX(-50%) scaleY(1); opacity: 1; }
-           50% { transform: translateX(-50%) scaleY(0.95) translateX(-48%); opacity: 0.9; }
-           100% { transform: translateX(-50%) scaleY(1.05) translateX(-52%); opacity: 1; }
-       }
-
-       /* ========================================================= */
-       /* === MEDIA QUERIES para hacer el diseño RESPONSIVO === */
-       /* ========================================================= */
-
-       /* Estilos para pantallas más pequeñas (celulares en modo vertical, hasta tablets pequeñas) */
-       @media (max-width: 768px) {
-           .initial-screen {
-               padding: 10px;
-           }
-           .gift-message {
-               font-size: 1.6em;
-               margin-bottom: 15px;
-           }
-           .gift-box {
-               width: 200px;
-               height: 200px;
-           }
-
-           .main-presentation {
-               padding: 10px;
-               justify-content: center;
-               min-height: 100vh;
-               height: auto;
-           }
-
-           h1 {
-               font-size: 2.2em;
-               margin: 0 auto 10px auto;
-               padding: 0 10px;
-               line-height: 1.3;
-               white-space: normal;
-               max-width: 95%;
-               display: block;
-               text-align: center;
-           }
-
-           h1 span {
-               display: inline-block;
-               margin: 0 2px;
-           }
-
-           .image-cake-wrapper {
-               flex-direction: column;
-               align-items: center;
-               margin-top: 10px;
-               width: 100%;
-               max-width: none;
-               padding: 0;
-           }
-
-           .person-image {
-               width: 90%;
-               max-width: 280px;
-               height: auto;
-               margin: 10px 0;
-           }
-
-           .person-image.hide-on-all {
-               display: none;
-           }
-
-           .cake-container {
-               width: 90%;
-               max-width: 250px;
-               height: auto;
-               margin: 10px 0;
-           }
-
-           .cake-image {
-               max-width: 100%;
-           }
-
-           .flame {
-               top: 50px;
-           }
-       }
-
-       /* Estilos para pantallas muy pequeñas (celulares más compactos, como iPhone SE) */
-       @media (max-width: 360px) {
-           .gift-message {
-               font-size: 1.2em;
-           }
-           .gift-box {
-               width: 160px;
-               height: 160px;
-           }
-           h1 {
-               font-size: 1.8em;
-               margin: 0 auto 5px auto;
-               padding: 0 5px;
-               line-height: 1.3;
-               white-space: normal;
-               text-align: center;
-           }
-           .person-image {
-               width: 95%;
-               max-width: 180px;
-               margin: 5px 0;
-           }
-           .cake-container {
-               width: 95%;
-               max-width: 200px;
-               margin: 5px 0;
-           }
-           .flame {
-               top: 40px;
-           }
+           50% { transform: translateX(-50%) scaleY(0.95); opacity: 0.9; }
+           100% { transform: translateX(-50%) scaleY(1.05); opacity: 1; }
        }
    </style>
 </head>
 <body>
    <div class="initial-screen" id="initial-screen">
-       <span class="gift-message">¡Abre tu regalo!</span>
+       <div class="gift-message">¡Abre tu regalo!</div>
        <img src="gift.png" alt="Regalo de Cumpleaños" class="gift-box" id="gift-box">
    </div>
 
    <div class="main-presentation" id="main-presentation">
        <div class="fireworks-container" id="fireworks-container"></div>
-       <h1>
-           ¡Feliz Cumpleaños Allison!
-       </h1>
+       <h1 id="birthday-message">¡Feliz Cumpleaños Allison!</h1>
 
        <div class="image-cake-wrapper">
            <img src="Allison.jpg" alt="Foto de Allison" class="person-image">
            <div class="cake-container">
-               <img src="cake.png" alt="Torta de Cumpleaños Personalizada" class="cake-image">
+               <img src="cake.png" alt="Torta de Cumpleaños" class="cake-image">
                <div class="flame"></div>
            </div>
-           </div>
+       </div>
    </div>
 
    <audio id="background-music" src="birthday_song.mp3" loop></audio>
@@ -344,69 +191,63 @@
        const mainPresentation = document.getElementById('main-presentation');
        const fireworksContainer = document.getElementById('fireworks-container');
        const backgroundMusic = document.getElementById('background-music');
+       const birthdayMessage = document.getElementById('birthday-message');
 
-       const fireworkSounds = [];
-       const maxConcurrentSounds = 8;
-       let currentFireworkSoundIndex = 0;
-
-       for (let i = 0; i < maxConcurrentSounds; i++) {
+       const fireworkSounds = Array.from({length: 5}, () => {
            const audio = new Audio('firework_bang.mp3');
            audio.volume = 0.2;
-           fireworkSounds.push(audio);
-       }
+           return audio;
+       });
 
-       let fireworksInterval;
+       let soundIndex = 0;
 
-       function startPresentation() {
+       giftBox.addEventListener('click', () => {
            initialScreen.classList.add('fade-out');
            initialScreen.addEventListener('transitionend', () => {
                initialScreen.style.display = 'none';
                mainPresentation.style.display = 'flex';
-               backgroundMusic.play().catch(error => {
-                   console.error("Error al reproducir la música de fondo:", error);
-               });
-               fireworksInterval = setInterval(createFirework, 1000);
-               animateH1Text();
+               backgroundMusic.play().catch(console.error);
+               setInterval(createFirework, 1000);
+               animateText();
            }, { once: true });
-       }
-
-       giftBox.addEventListener('click', startPresentation);
+       });
 
        function createFirework() {
            const x = Math.random() * window.innerWidth;
-           const y = Math.random() * window.innerHeight * 0.9;
-           const numParticles = 40;
+           const y = Math.random() * window.innerHeight * 0.8;
            const color = `hsl(${Math.random() * 360}, 100%, 70%)`;
 
-           const bangSound = fireworkSounds[(currentFireworkSoundIndex = (currentFireworkSoundIndex + 1) % maxConcurrentSounds)];
-           bangSound.currentTime = 0;
-           bangSound.play().catch(e => console.log("Error al reproducir sonido de fuegos artificiales:", e));
+           const sound = fireworkSounds[soundIndex];
+           soundIndex = (soundIndex + 1) % fireworkSounds.length;
+           sound.currentTime = 0;
+           sound.play().catch(() => {});
 
-           for (let i = 0; i < numParticles; i++) {
+           for (let i = 0; i < 30; i++) {
                const particle = document.createElement('div');
                particle.classList.add('firework-particle');
                particle.style.left = `${x}px`;
                particle.style.top = `${y}px`;
                particle.style.backgroundColor = color;
-               const angle = Math.random() * Math.PI * 2;
-               const distance = Math.random() * 150 + 50;
+
+               const angle = Math.random() * 2 * Math.PI;
+               const distance = Math.random() * 100 + 50;
                particle.style.setProperty('--x', `${distance * Math.cos(angle)}px`);
                particle.style.setProperty('--y', `${distance * Math.sin(angle)}px`);
                fireworksContainer.appendChild(particle);
+
                particle.addEventListener('animationend', () => particle.remove());
            }
        }
 
-       function animateH1Text() {
-           const h1Element = document.querySelector('h1');
-           const text = h1Element.textContent;
-           h1Element.innerHTML = '';
-           text.split('').forEach((char, index) => {
+       function animateText() {
+           const text = birthdayMessage.textContent;
+           birthdayMessage.innerHTML = '';
+           text.split('').forEach((char, i) => {
                const span = document.createElement('span');
-               span.innerHTML = char === ' ' ? '&nbsp;' : char;
-               span.className = char === ' ' ? 'space-char' : '';
-               span.style.animationDelay = `${index * 0.08}s`;
-               h1Element.appendChild(span);
+               span.textContent = char;
+               if (char === ' ') span.classList.add('space-char');
+               span.style.animationDelay = `${i * 0.08}s`;
+               birthdayMessage.appendChild(span);
            });
        }
    </script>
