@@ -111,8 +111,9 @@
             z-index: 2;
             position: relative;
             display: flex;
-            flex-wrap: wrap;
+            flex-wrap: wrap; /* Permite que el texto se ajuste en varias líneas */
             justify-content: center;
+            text-align: center; /* Centra el texto si se divide en varias líneas */
         }
 
         h1 span {
@@ -144,6 +145,8 @@
             margin-top: 20px; /* Espacio superior para separarlo del título H1 */
             position: relative; /* Para que los z-index funcionen dentro de este contexto */
             z-index: 1;
+            flex-wrap: nowrap; /* Por defecto, no permite que los elementos salten de línea */
+            padding: 0 10px; /* Un poco de padding horizontal para evitar que los bordes toquen la pantalla */
         }
 
         .person-image {
@@ -161,7 +164,6 @@
             display: flex;
             justify-content: center;
             align-items: flex-end;
-            /* margin-top: 20px; Ya no es necesario aquí, lo maneja .image-cake-wrapper */
             z-index: 2; /* Para que la torta quede un poco por encima de las imágenes laterales si se superponen */
         }
 
@@ -192,6 +194,87 @@
             50% { transform: translateX(-50%) scaleY(0.95) translateX(-48%); opacity: 0.9; }
             100% { transform: translateX(-50%) scaleY(1.05) translateX(-52%); opacity: 1; }
         }
+
+        /* ========================================================= */
+        /* === MEDIA QUERIES para hacer el diseño RESPONSIVO === */
+        /* ========================================================= */
+
+        /* Estilos para pantallas más pequeñas (celulares en modo vertical) */
+        @media (max-width: 768px) { /* Se aplica cuando el ancho de la pantalla es 768px o menos */
+
+            /* Ajustes para la pantalla inicial del regalo */
+            .gift-message {
+                font-size: 1.8em; /* Mensaje más pequeño para el celular */
+                margin-bottom: 20px;
+            }
+
+            .gift-box {
+                width: 250px; /* Regalo más pequeño */
+                height: 250px;
+            }
+
+            /* Ajustes para la presentación principal */
+            h1 {
+                font-size: 2.5em; /* Título de cumpleaños más pequeño */
+                margin-bottom: 20px;
+                padding: 0 10px; /* Asegura que el texto no toque los bordes */
+            }
+
+            .image-cake-wrapper {
+                flex-direction: column; /* Apila las imágenes y la torta verticalmente */
+                align-items: center; /* Centra los elementos apilados */
+                margin-top: 10px; /* Reduce el margen superior */
+            }
+
+            .person-image {
+                width: 200px; /* Imágenes de persona más pequeñas */
+                height: 250px; /* Ajusta la altura si es necesario */
+                margin: 15px 0; /* Más margen vertical entre los elementos apilados */
+            }
+
+            .cake-container {
+                width: 250px; /* Torta más pequeña */
+                height: 250px;
+                margin-bottom: 15px; /* Margen para separar de la siguiente imagen */
+            }
+
+            .cake-image {
+                max-width: 250px;
+            }
+
+            .flame {
+                top: 55px; /* Ajusta la posición de la flama en la torta más pequeña */
+            }
+        }
+
+        /* Estilos para pantallas muy pequeñas (celulares más compactos) */
+        @media (max-width: 480px) { /* Se aplica cuando el ancho de la pantalla es 480px o menos */
+            .gift-message {
+                font-size: 1.5em;
+            }
+            .gift-box {
+                width: 200px;
+                height: 200px;
+            }
+            h1 {
+                font-size: 2em;
+            }
+            .person-image {
+                width: 180px;
+                height: 220px;
+            }
+            .cake-container {
+                width: 220px;
+                height: 220px;
+            }
+            .cake-image {
+                max-width: 220px;
+            }
+            .flame {
+                top: 45px;
+            }
+        }
+
     </style>
 </head>
 <body>
