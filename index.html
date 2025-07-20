@@ -7,7 +7,8 @@
     <style>
         body {
             margin: 0;
-            overflow: hidden; /* Mantener overflow hidden en body */
+            overflow-x: hidden; /* Solo ocultar desbordamiento horizontal */
+            overflow-y: auto; /* Permitir scroll vertical si el contenido es muy largo */
             background-color: #ef71da; /* Color de fondo principal para la presentación */
             font-family: 'Comic Sans MS', cursive, sans-serif;
             color: #000000; /* Color de texto predeterminado para el body (puede ser sobreescrito) */
@@ -117,6 +118,8 @@
             justify-content: center;
             text-align: center; /* Centra el texto si se divide en varias líneas */
             line-height: 1.1; /* Ajusta la altura de línea para evitar espacios extra al envolver */
+            box-sizing: border-box; /* Para que el padding no cause desbordamiento */
+            padding: 0 20px; /* Un poco de padding horizontal para el texto */
         }
 
         h1 span {
@@ -124,7 +127,7 @@
             transform: translateY(20px);
             display: inline-block;
             animation: letter-appear 0.6s forwards ease-out;
-            margin: 0 1px;
+            margin: 0 0.5px; /* Reducir aún más el margen entre letras */
             text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.4), 0 0 15px #FF69B4;
         }
 
@@ -151,6 +154,8 @@
             flex-wrap: nowrap; /* Por defecto, no permite que los elementos salten de línea */
             width: 100%; /* Asegura que ocupe todo el ancho disponible */
             max-width: 100%; /* Evita desbordamientos */
+            box-sizing: border-box; /* Para que el padding no cause desbordamiento */
+            padding: 0 10px; /* Padding horizontal para el contenedor de imágenes */
         }
 
         .person-image {
@@ -209,47 +214,52 @@
         /* Estilos para pantallas más pequeñas (celulares en modo vertical, hasta tablets pequeñas) */
         @media (max-width: 768px) {
             .initial-screen {
-                padding: 10px; /* Añadir un pequeño padding para asegurar que no haya desbordamiento */
+                padding: 10px;
             }
             .gift-message {
-                font-size: 1.8em; /* Mensaje más pequeño para el celular */
-                margin-bottom: 20px;
+                font-size: 1.6em; /* Mensaje más pequeño */
+                margin-bottom: 15px;
             }
             .gift-box {
-                width: 250px; /* Regalo más pequeño */
-                height: 250px;
+                width: 200px; /* Regalo más pequeño */
+                height: 200px;
             }
 
             .main-presentation {
-                padding: 10px; /* Reducir padding en móviles */
-                justify-content: flex-start; /* Empezar el contenido más arriba en la pantalla */
+                padding: 10px;
+                justify-content: flex-start; /* Empezar el contenido más arriba */
+                min-height: auto; /* Permitir que la altura se ajuste al contenido, no siempre 100vh */
+                height: 100vh; /* Forzar 100vh si el contenido es menor, para centrado visual */
             }
 
             h1 {
-                font-size: 2.2em; /* Título de cumpleaños más pequeño */
-                margin-bottom: 15px; /* Reducir margen inferior */
-                padding: 0 5px; /* Más padding para el texto */
-                line-height: 1.2; /* Ajustar la altura de línea */
+                font-size: 1.9em; /* Título de cumpleaños más pequeño */
+                margin-top: 10px; /* Reducir margen superior */
+                margin-bottom: 10px; /* Reducir margen inferior */
+                padding: 0 5px; /* Asegura que el texto no toque los bordes */
+                line-height: 1.2;
             }
 
             .image-cake-wrapper {
                 flex-direction: column; /* Apila las imágenes y la torta verticalmente */
                 align-items: center; /* Centra los elementos apilados */
                 margin-top: 10px; /* Reduce el margen superior */
-                width: 100%; /* Asegura que ocupe todo el ancho */
+                width: 100%;
+                max-width: none; /* Eliminar max-width para que 'width: 90%' funcione */
+                padding: 0; /* Eliminar padding horizontal en el wrapper para móvil */
             }
 
             .person-image {
-                width: 80%; /* Hacer la imagen más ancha para aprovechar el espacio */
-                max-width: 250px; /* Limitar el tamaño máximo de la imagen */
-                height: auto; /* Asegura la proporción */
-                margin: 10px 0; /* Más margen vertical entre los elementos apilados */
+                width: 90%; /* Hacer la imagen más ancha para aprovechar el espacio */
+                max-width: 280px; /* Limitar el tamaño máximo de la imagen */
+                height: auto;
+                margin: 10px 0; /* Margen vertical entre los elementos apilados */
             }
 
             .cake-container {
-                width: 80%; /* Hacer la torta más ancha */
+                width: 90%; /* Hacer la torta más ancha */
                 max-width: 250px; /* Limitar el tamaño máximo de la torta */
-                height: auto; /* Asegura la proporción */
+                height: auto;
                 margin: 10px 0; /* Margen para separar de las imágenes */
             }
 
@@ -263,27 +273,28 @@
         }
 
         /* Estilos para pantallas muy pequeñas (celulares más compactos, como iPhone SE) */
-        @media (max-width: 420px) {
+        @media (max-width: 360px) { /* Reducido a 360px para teléfonos muy pequeños */
             .gift-message {
-                font-size: 1.3em;
+                font-size: 1.2em;
             }
             .gift-box {
-                width: 180px;
-                height: 180px;
+                width: 160px;
+                height: 160px;
             }
             h1 {
-                font-size: 1.8em;
-                margin-bottom: 10px;
+                font-size: 1.6em;
+                margin-top: 5px;
+                margin-bottom: 5px;
             }
             .person-image {
-                width: 90%; /* Aún más ancho para pantallas muy pequeñas */
-                max-width: 200px;
-                margin: 8px 0;
+                width: 95%; /* Aún más ancho para pantallas muy pequeñas */
+                max-width: 180px; /* Limitar el tamaño máximo */
+                margin: 5px 0;
             }
             .cake-container {
-                width: 90%;
+                width: 95%;
                 max-width: 200px;
-                margin: 8px 0;
+                margin: 5px 0;
             }
             .flame {
                 top: 40px;
