@@ -113,7 +113,7 @@
             margin-bottom: 30px;
             z-index: 2;
             position: relative;
-            display: flex; /* Mantener flex para la animación de letras */
+            display: flex; 
             flex-direction: column; /* Apilar las dos líneas del título */
             justify-content: center;
             align-items: center; /* Centrar el texto apilado */
@@ -341,7 +341,7 @@
         const giftBox = document.getElementById('gift-box');
         const mainPresentation = document.getElementById('main-presentation');
         const fireworksContainer = document.getElementById('fireworks-container');
-        const backgroundMusic = document = document.getElementById('background-music');
+        const backgroundMusic = document.getElementById('background-music');
 
         // --- Configuración y pre-carga de sonidos de fuegos artificiales ---
         const fireworkSounds = [];
@@ -423,30 +423,34 @@
 
         function animateH1Text() {
             const h1Element = document.querySelector('h1');
-            const textContent = h1Element.innerHTML; // Obtener el HTML para manejar el <br>
+            // Usamos innerHTML para obtener el <br>
+            const textContent = h1Element.innerHTML; 
             h1Element.innerHTML = ''; // Limpiar el contenido existente
 
             // Dividir por líneas para animar correctamente cada parte
             const lines = textContent.split('<br>');
 
+            let totalCharIndex = 0; // Para calcular el retraso de animación total
+
             lines.forEach((lineText, lineIndex) => {
-                // Si no es la primera línea y hay más de una, añadir un <br> real
+                // Si no es la primera línea, añadir un <br> real para el renderizado
                 if (lineIndex > 0) {
                     const br = document.createElement('br');
                     h1Element.appendChild(br);
                 }
 
-                lineText.split('').forEach((char, charIndex) => {
+                lineText.split('').forEach((char) => {
                     const span = document.createElement('span');
                     if (char === ' ') {
                         span.innerHTML = '&nbsp;';
                         span.classList.add('space-char');
                     } else {
                         span.textContent = char;
-                        // Ajustar el delay para que la segunda línea no empiece de inmediato
-                        span.style.animationDelay = `${(lineIndex * 0.5) + (charIndex * 0.08)}s`; 
+                        // Retraso de animación basado en el índice total de caracteres
+                        span.style.animationDelay = `${totalCharIndex * 0.08}s`; 
                     }
                     h1Element.appendChild(span);
+                    totalCharIndex++; // Incrementar el índice total
                 });
             });
         }
