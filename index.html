@@ -241,12 +241,19 @@
             }
 
             h1 {
-                font-size: 2.2em; /* Tamaño de fuente para que encaje en una línea */
+                font-size: 2.2em; /* Tamaño de fuente para que encaje mejor */
                 margin: 0 auto 10px auto; /* Centrar el h1 y ajustar margen inferior */
                 padding: 0 5px; /* Reducir padding horizontal para más espacio */
                 line-height: 1.2;
-                white-space: nowrap; /* Intentar forzar una sola línea */
+                white-space: normal; /* CORREGIDO: PERMITE QUE EL TEXTO SE ENRUTEE EN MÚLTIPLES LÍNEAS */
                 max-width: 95%; /* Limitar el ancho del h1 para evitar desbordamiento */
+                text-align: center; /* CORREGIDO: Centra el texto dentro del h1 cuando se envuelve */
+            }
+
+            /* Asegurar que cada span (letra) dentro del h1 se centre correctamente */
+            h1 span {
+                display: inline-block; /* Mantener inline-block para la animación */
+                /* No necesitas cambios adicionales aquí, el text-align en h1 lo manejará */
             }
 
             .image-cake-wrapper {
@@ -298,6 +305,8 @@
             h1 {
                 font-size: 1.8em; /* Reducir aún más el tamaño de la fuente para pantallas muy pequeñas */
                 margin: 0 auto 5px auto; /* Centrar y ajustar margen */
+                /* white-space: normal; (Ya heredado del media query anterior, no es necesario repetirlo) */
+                /* text-align: center; (Ya heredado del media query anterior, no es necesario repetirlo) */
             }
             .person-image {
                 width: 95%;
