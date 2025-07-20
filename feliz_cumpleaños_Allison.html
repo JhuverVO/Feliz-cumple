@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¡Feliz Cumpleaños Allison!</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-color: #ef71da; /* Color de fondo principal para la presentación */
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            color: #000000; /* Color de texto predeterminado para el body (puede ser sobreescrito) */
+        }
+
+        /* ------------------- Estilos de la Pantalla Inicial de Regalo ------------------- */
+        .initial-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #ffffff; /* Fondo blanco para la pantalla inicial */
+            display: flex;
+            flex-direction: column; /* Apila texto y regalo verticalmente */
+            justify-content: center;
+            align-items: center;
+            z-index: 9999; /* Asegura que esté por encima de todo */
+            opacity: 1;
+            transition: opacity 1.5s ease-out; /* Transición de desvanecimiento */
+        }
+
+        .initial-screen.fade-out {
+            opacity: 0;
+            pointer-events: none; /* Deshabilita clics una vez que se está desvaneciendo */
+        }
+
+        .gift-message {
+            font-size: 2.5em;
+            color: #000000; /* Color del texto para "Abre tu regalo" */
+            margin-bottom: 30px;
+            text-align: center;
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+            animation: pulse 1.5s infinite alternate; /* Animación de pulsación sutil */
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(1.05); opacity: 0.9; }
+        }
+
+        .gift-box {
+            cursor: pointer;
+            width: 360px; /* Tamaño del regalo */
+            height: 360px;
+            object-fit: contain;
+            animation: bounce 2s infinite ease-in-out; /* Animación de rebote sutil */
+        }
+
+        .gift-box:active {
+            transform: scale(0.95); /* Pequeño efecto de clic */
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        /* --------------------------------------------------------------------------------- */
+
+
+        /* ------------------- Estilos de la Presentación Principal ------------------- */
+        .main-presentation {
+            display: none; /* Oculto por defecto, se mostrará al hacer clic en el regalo */
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            width: 100%;
+            position: relative;
+        }
+
+        .fireworks-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 100;
+        }
+
+        .firework-particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            opacity: 0;
+            animation: particle-burst 2s forwards ease-out;
+        }
+
+        @keyframes particle-burst {
+            0% { transform: translate(0, 0) scale(0); opacity: 1; box-shadow: 0 0 5px currentColor; }
+            10% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(var(--x), var(--y)) scale(0.5); opacity: 0; box-shadow: none; }
+        }
+
+        h1 {
+            font-size: 4.5em;
+            color: #c0ff02; /* Color específico para el mensaje de cumpleaños */
+            margin-bottom: 30px;
+            z-index: 2;
+            position: relative;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        h1 span {
+            opacity: 0;
+            transform: translateY(20px);
+            display: inline-block;
+            animation: letter-appear 0.6s forwards ease-out;
+            margin: 0 1px;
+            text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.4), 0 0 15px #FF69B4;
+        }
+
+        h1 .space-char {
+            opacity: 1;
+            transform: none;
+            animation: none;
+            text-shadow: none;
+        }
+
+        @keyframes letter-appear {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Contenedor para las imágenes de persona y la torta */
+        .image-cake-wrapper {
+            display: flex; /* Permite que los elementos se coloquen uno al lado del otro */
+            justify-content: center; /* Centra horizontalmente */
+            align-items: flex-end; /* Alinea los elementos por la parte inferior */
+            margin-top: 20px; /* Espacio superior para separarlo del título H1 */
+            position: relative; /* Para que los z-index funcionen dentro de este contexto */
+            z-index: 1;
+        }
+
+        .person-image {
+            width: 300px; /* Ancho de las imágenes de persona */
+            height: 350px; /* Alto de las imágenes de persona (ajusta según tus imágenes) */
+            object-fit: contain; /* Ajusta la imagen dentro de las dimensiones sin cortarla */
+            margin: 0 20px; /* Espacio a los lados de cada imagen */
+            z-index: 1; /* Asegura que estén al mismo nivel que la torta */
+        }
+
+        .cake-container {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            /* margin-top: 20px; Ya no es necesario aquí, lo maneja .image-cake-wrapper */
+            z-index: 2; /* Para que la torta quede un poco por encima de las imágenes laterales si se superponen */
+        }
+
+        .cake-image {
+            width: 100%;
+            height: auto;
+            max-width: 300px;
+            display: block;
+            object-fit: contain;
+        }
+
+        .flame {
+            position: absolute;
+            top: 70px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 12px;
+            height: 20px;
+            background-color: #ffff00;
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            box-shadow: 0 0 10px #ffff00, 0 0 20px #ff0000;
+            animation: flicker 0.4s infinite alternate;
+            z-index: 3;
+        }
+
+        @keyframes flicker {
+            0% { transform: translateX(-50%) scaleY(1); opacity: 1; }
+            50% { transform: translateX(-50%) scaleY(0.95) translateX(-48%); opacity: 0.9; }
+            100% { transform: translateX(-50%) scaleY(1.05) translateX(-52%); opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div class="initial-screen" id="initial-screen">
+        <span class="gift-message">¡Abre tu regalo!</span>
+        <img src="gift.png" alt="Regalo de Cumpleaños" class="gift-box" id="gift-box">
+    </div>
+
+    <div class="main-presentation" id="main-presentation">
+        <div class="fireworks-container" id="fireworks-container"></div>
+        <h1>¡Feliz Cumpleaños Allison!</h1>
+        
+        <div class="image-cake-wrapper">
+            <img src="Allison.jpg" alt="Foto de Allison" class="person-image">
+            <div class="cake-container">
+                <img src="cake.png" alt="Torta de Cumpleaños Personalizada" class="cake-image">
+                <div class="flame"></div>
+            </div>
+            <img src="Familiar.jpg" alt="Foto Familiar" class="person-image">
+        </div>
+    </div>
+
+    <audio id="background-music" src="birthday_song.mp3" loop></audio>
+
+    <script>
+        const initialScreen = document.getElementById('initial-screen');
+        const giftBox = document.getElementById('gift-box');
+        const mainPresentation = document.getElementById('main-presentation');
+        const fireworksContainer = document.getElementById('fireworks-container');
+        const backgroundMusic = document.getElementById('background-music');
+
+        // --- Configuración y pre-carga de sonidos de fuegos artificiales ---
+        const fireworkSounds = [];
+        const maxConcurrentSounds = 8;
+        let currentFireworkSoundIndex = 0;
+
+        for (let i = 0; i < maxConcurrentSounds; i++) {
+            const audio = new Audio('firework_bang.mp3');
+            audio.volume = 0.2; /* Volúmen un poco más bajo para las explosiones */
+            fireworkSounds.push(audio);
+        }
+        // ------------------------------------------------------------------
+
+        let fireworksInterval; 
+
+        // Función para iniciar la presentación completa
+        function startPresentation() {
+            // 1. Desvanecer la pantalla inicial
+            initialScreen.classList.add('fade-out');
+
+            // Esperar a que la transición termine antes de ocultar completamente y mostrar la presentación
+            initialScreen.addEventListener('transitionend', () => {
+                initialScreen.style.display = 'none';
+                mainPresentation.style.display = 'flex'; // Mostrar la presentación principal
+
+                // 2. Iniciar la música de fondo
+                backgroundMusic.play().catch(error => {
+                    console.error("Error al reproducir la música de fondo:", error);
+                });
+
+                // 3. Iniciar los fuegos artificiales (con el intervalo de 1 segundo)
+                fireworksInterval = setInterval(createFirework, 1000); 
+
+                // 4. Iniciar la animación del texto
+                animateH1Text();
+            }, { once: true }); 
+        }
+
+        // Event listener para el clic en el regalo
+        giftBox.addEventListener('click', startPresentation);
+
+
+        function createFirework() {
+            const x = Math.random() * window.innerWidth;
+            const y = Math.random() * window.innerHeight * 0.9; 
+            const numParticles = 40;
+            const color = `hsl(${Math.random() * 360}, 100%, 70%)`;
+
+            const bangSound = fireworkSounds[currentFireworkSoundIndex];
+            bangSound.currentTime = 0; 
+            bangSound.play().catch(e => console.log("Error al reproducir sonido de fuegos artificiales:", e));
+
+            currentFireworkSoundIndex = (currentFireworkSoundIndex + 1) % maxConcurrentSounds;
+
+            for (let i = 0; i < numParticles; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('firework-particle');
+                
+                particle.style.left = `${x}px`;
+                particle.style.top = `${y}px`;
+                particle.style.backgroundColor = color;
+
+                const angle = Math.random() * Math.PI * 2;
+                const distance = Math.random() * 150 + 50;
+
+                const targetX = distance * Math.cos(angle);
+                const targetY = distance * Math.sin(angle);
+
+                particle.style.setProperty('--x', `${targetX}px`);
+                particle.style.setProperty('--y', `${targetY}px`);
+
+                fireworksContainer.appendChild(particle);
+
+                particle.addEventListener('animationend', () => {
+                    particle.remove();
+                });
+            }
+        }
+
+        function animateH1Text() {
+            const h1Element = document.querySelector('h1');
+            const text = h1Element.textContent;
+            h1Element.innerHTML = ''; 
+
+            text.split('').forEach((char, index) => {
+                const span = document.createElement('span');
+                
+                if (char === ' ') {
+                    span.innerHTML = '&nbsp;';
+                    span.classList.add('space-char');
+                } else {
+                    span.textContent = char;
+                    span.style.animationDelay = `${index * 0.08}s`;
+                }
+                h1Element.appendChild(span);
+            });
+        }
+    </script>
+</body>
+</html>
